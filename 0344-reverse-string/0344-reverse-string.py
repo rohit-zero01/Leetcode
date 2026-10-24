@@ -7,7 +7,7 @@ class Solution:
         right = len(s)-1
 
         def reverse(left,right):
-            while left>=right:
+            if left>=right:
                 return
 
             s[left], s[right] = s[right], s[left]
