@@ -3,8 +3,18 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        s.reverse()
-        return s
+        left = 0
+        right = len(s)-1
+
+        def reverse(left,right):
+            while left>=right:
+                return
+
+            s[left], s[right] = s[right], s[left]
+
+            reverse(left+1, right-1)
+        
+        reverse(0, (len(s)-1))
 
             
         
