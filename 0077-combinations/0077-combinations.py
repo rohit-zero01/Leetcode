@@ -8,8 +8,7 @@ class Solution:
                 res.append(list(curr))
                 return
             
-            for d in range(i, n +1):
-
+            for d in range(i, n - (k - len(curr)) + 2):
                 curr.append(d)
                 combi(d+1, curr)
                 curr.pop()
