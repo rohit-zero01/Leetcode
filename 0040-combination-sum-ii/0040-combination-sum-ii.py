@@ -30,7 +30,7 @@ class Solution:
         def CombiSum2(ind, curr,target) :
             if target == 0:
                 res.append(list(curr))
-
+                
             for i in range(ind, len(candidates)):
                 if i>ind and candidates[i]==candidates[i-1]:
                     continue
