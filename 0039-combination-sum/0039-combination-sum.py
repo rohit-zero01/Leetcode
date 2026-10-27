@@ -1,48 +1,34 @@
 class Solution:
     def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
-        # res = []
-        # def combiSum(i, curr):
-        #     if sum(curr) > target:
-        #         return
-
-        #     if sum(curr) == target:
-        #         res.append(list(curr))
-        #         return
-
-        #     for d in range(i, len(candidates)):
-        #         curr.append(candidates[d])
-        #         combiSum(d, curr)
-        #         curr.pop()
-
-
-
-        # combiSum(0,[])
-        # return res
         res = []
 
-        def combiSum(i, curr, total):
-            # Base Case 1: Target reached
-            if total == target:
+        def CombiSum(i, curr, target):
+            if target == 0:
                 res.append(list(curr))
                 return
-            
-            # Base Case 2: Out of bounds or exceeded target
-            if i >= len(candidates) or total > target:
+        
+            # Base case 2: Out of bounds or target exceeded
+            if i == len(candidates) or target < 0:
                 return
 
-            # Choice 1: Include candidates[i] (stay at index 'i' to allow reuse)
-            curr.append(candidates[i])
-            combiSum(i, curr, total + candidates[i])
-            
-            # Backtrack
-            curr.pop()
+            if candidates[i]<=target:
+                curr.append(candidates[i])
+                CombiSum(i, curr, target-candidates[i])
+                curr.pop()
 
-            # Choice 2: Skip candidates[i] and move to the next index
-            combiSum(i + 1, curr, total)
+            CombiSum(i+1, curr, target)
 
-        # Start recursion with index 0 and initial total of 0
-        combiSum(0, [], 0)
+        CombiSum(0,[], target)
         return res
+
+
+
+
+
+
+
+
+
 
             
         
