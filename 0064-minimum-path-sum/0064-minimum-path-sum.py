@@ -24,29 +24,32 @@ class Solution:
 
         n = len(grid)
         m = len(grid[0])
-        dp = [[0 for _ in range(m)]for _ in range(n)]
+        # dp = [[0 for _ in range(m)]for _ in range(n)]
+        prev = [0]*m
 
         for i in range(n):
+            temp = [0]*m
             for j in range(m):
                 if i == 0 and j ==0:
-                    dp[i][j] = grid[i][j]
+                    temp[j] = grid[i][j]
 
                 else:
                     up = grid[i][j]
                     if i>0:
-                        up += dp[i-1][j]
+                        up += prev[j]
                     else:
                         up += float('inf')
                     
                     left = grid[i][j]
                     if j>0:
-                        left += dp[i][j-1]
+                        left += temp[j-1]
                     else:
                         left += float('inf')
 
-                    dp[i][j] = min(up, left)
+                    temp[j] = min(up, left)
 
-        return dp[n-1][m-1]               
+            prev = temp
+        return prev[m-1]               
 
                 
 
