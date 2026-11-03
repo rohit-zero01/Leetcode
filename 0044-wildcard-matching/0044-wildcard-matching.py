@@ -62,35 +62,64 @@ class Solution:
 
 
 
-        n = len(p)
-        m = len(s)
+        # n = len(p)
+        # m = len(s)
         
-        # Initialize 'prev' row corresponding to an empty pattern (i = 0)
-        prev = [False] * (m + 1)
-        prev[0] = True  # Empty pattern matches empty string
+        # # Initialize 'prev' row corresponding to an empty pattern (i = 0)
+        # prev = [False] * (m + 1)
+        # prev[0] = True  # Empty pattern matches empty string
         
-        # Fill the DP row by row
-        for i in range(1, n + 1):
-            curr = [False] * (m + 1)
+        # # Fill the DP row by row
+        # for i in range(1, n + 1):
+        #     curr = [False] * (m + 1)
             
-            # Base Case for string j = 0 (empty string matches p[0...i-1] only if all are '*')
-            flag = True
-            for ii in range(1, i + 1):
-                if p[ii - 1] != '*':
-                    flag = False
-                    break
-            curr[0] = flag
+        #     # Base Case for string j = 0 (empty string matches p[0...i-1] only if all are '*')
+        #     flag = True
+        #     for ii in range(1, i + 1):
+        #         if p[ii - 1] != '*':
+        #             flag = False
+        #             break
+        #     curr[0] = flag
             
-            # Match characters against the string
-            for j in range(1, m + 1):
-                if p[i - 1] == s[j - 1] or p[i - 1] == "?":
-                    curr[j] = prev[j - 1]
-                elif p[i - 1] == '*':
-                    curr[j] = prev[j] or curr[j - 1]
-                else:
-                    curr[j] = False
+        #     # Match characters against the string
+        #     for j in range(1, m + 1):
+        #         if p[i - 1] == s[j - 1] or p[i - 1] == "?":
+        #             curr[j] = prev[j - 1]
+        #         elif p[i - 1] == '*':
+        #             curr[j] = prev[j] or curr[j - 1]
+        #         else:
+        #             curr[j] = False
             
-            # Move curr row to prev row for the next iteration
-            prev = curr
+        #     # Move curr row to prev row for the next iteration
+        #     prev = curr
 
-        return prev[m]
+        # return prev[m]
+
+
+        n, m = len(p), len(s)
+        
+        # Only one row needed
+        dp = [False] * (m + 1)
+        dp[0] = True  # Empty pattern matches empty string
+        
+        for i in range(1, n + 1):
+            # Store dp[j-1] from the previous row before overwriting dp[0]
+            prev_diagonal = dp[0]
+            
+            # Update base case for j = 0
+            dp[0] = dp[0] and p[i - 1] == '*'
+            
+            for j in range(1, m + 1):
+                temp = dp[j]  # Save current value to act as prev_diagonal for the next j
+                
+                if p[i - 1] == s[j - 1] or p[i - 1] == '?':
+                    dp[j] = prev_diagonal
+                elif p[i - 1] == '*':
+                    dp[j] = dp[j] or dp[j - 1]
+                else:
+                    dp[j] = False
+                    
+                prev_diagonal = temp  # Update for the next column loop
+                
+        return dp[m]
+
