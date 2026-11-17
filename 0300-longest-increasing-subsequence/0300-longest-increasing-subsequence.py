@@ -1,29 +1,7 @@
+
+#IMP2
 # class Solution:
 #     def lengthOfLIS(self, nums: list[int]) -> int:
-#         # n = len(nums)
-#         # dp = [[-1 for _ in range(n+1)]for _ in range(n)]
-
-#         # def f(i,prev):
-
-#         #     if i == n:
-#         #         return 0
-
-#         #     if dp[i][prev+1] != -1:
-#         #         return dp[i][prev+1]
-
-#         #     exclude = 0 + f(i+1, prev)
-
-#         #     include = 0
-#         #     if prev == -1 or nums[i]> nums[prev]:
-#         #         include = 1 + f(i+1, i)
-
-#         #     dp[i][prev+1] = max(include, exclude)
-
- 
-#         #     return dp[i][prev+1]
-
-#         # return f(0, -1)
-
 
 #         n = len(nums)
 #         dp = [1] * n
@@ -37,6 +15,21 @@
 #             maxi = max(maxi, dp[i])
 
 #         return maxi
+
+
+#IMP1
+import bisect
+class Solution:
+    def lengthOfLIS(self, nums: list[int]) -> int:
+        temp = []
+        for x in nums:
+            if not temp or x > temp[-1]:
+                temp.append(x)
+            else:
+                idx = bisect.bisect_left(temp, x)
+                temp[idx] = x
+        return len(temp)
+
 
 
 # class Solution:
@@ -67,23 +60,23 @@
 
 
 
-class Solution:
-    def lengthOfLIS(self, nums: list[int]) -> int:
-        n = len(nums)
-        # dp[i][prev + 1] stores the LIS length starting at index i with previous index prev
-        dp = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
+# class Solution:
+#     def lengthOfLIS(self, nums: list[int]) -> int:
+#         n = len(nums)
+#         # dp[i][prev + 1] stores the LIS length starting at index i with previous index prev
+#         dp = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
         
-        for i in range(n - 1, -1, -1):
-            for prev in range(i - 1, -2, -1):
-                exclude = dp[i + 1][prev + 1]
+#         for i in range(n - 1, -1, -1):
+#             for prev in range(i - 1, -2, -1):
+#                 exclude = dp[i + 1][prev + 1]
                 
-                include = 0
-                if prev == -1 or nums[i] > nums[prev]:
-                    include = 1 + dp[i + 1][i + 1]
+#                 include = 0
+#                 if prev == -1 or nums[i] > nums[prev]:
+#                     include = 1 + dp[i + 1][i + 1]
                 
-                dp[i][prev + 1] = max(include, exclude)
+#                 dp[i][prev + 1] = max(include, exclude)
                 
-        return dp[0][0]
+#         return dp[0][0]
 
 
 
