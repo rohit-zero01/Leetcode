@@ -1,19 +1,52 @@
 class Solution:
     def search(self, nums: list[int], target: int) -> int:
-        low = 0
-        high = len(nums)-1
+        # low = 0
+        # high = len(nums)-1
 
-        while low<=high:
-            guess = (low+high)//2
+        # while low<=high:
+        #     guess = (low+high)//2
 
-            if nums[guess] > target:
-                high = guess - 1            
-            elif nums[guess] < target:
-                low = guess + 1
+        #     if nums[guess] > target:
+        #         high = guess - 1            
+        #     elif nums[guess] < target:
+        #         low = guess + 1
+        #     else:
+        #         return guess
+
+        # return -1
+
+
+        l = 0
+        h = len(nums)-1
+
+        while l<=h:
+            g = (l+h)//2
+
+            if nums[g]<target:
+                l = g+1
+            elif nums[g]>target:
+                h = g-1
             else:
-                return guess
+                return g
 
         return -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         
