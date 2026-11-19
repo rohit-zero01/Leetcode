@@ -9,6 +9,8 @@ class Solution:
             return
         
         k = k%n 
+        if k == 0: return
+
         def rev(left, right):
             while left < right:
                 nums[left], nums[right] = nums[right], nums[left]
